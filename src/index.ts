@@ -38,6 +38,14 @@ connection.connect((err) => {
   }
 });
 
+connection.query('SHOW TABLES', (err, results) => {
+  if (err) {
+    console.error('❌ SHOW TABLES failed:', err);
+  } else {
+    console.log('✅ Tables in DB:', results);
+  }
+});
+
 const app = express();
 app.use(cors());
 app.use(express.json());
