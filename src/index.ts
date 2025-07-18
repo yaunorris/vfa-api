@@ -11,8 +11,32 @@ import studentRoutes from './routes/studentRoutes';
 import eventRoutes from './routes/eventRoutes'; // ✅ Important
 
 import pushRoutes from './routes/pushRoutes'; // 👈 add this at top
+import mysql from 'mysql2';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT || 3306),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error('❌ DB connection failed:', err.message);
+  } else {
+    console.log('✅ Connected to NAS MariaDB successfully!');
+    connection.query('SELECT COUNT(*) AS studentCount FROM students', (err, results) => {
+      if (err) {
+        console.error('❌ Query failed:', err.message);
+      } else {
+        console.log(`✅ Found ${results[0].studentCount} students in DB.`);
+      }
+    });
+  }
+});
 
 const app = express();
 app.use(cors());
