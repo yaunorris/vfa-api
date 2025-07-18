@@ -32,7 +32,7 @@ connection.connect((err) => {
       if (err) {
         console.error('❌ Query failed:', err.message);
       } else {
-        console.log(`✅ Found ${results[0].studentCount} students in DB.`);
+        console.log(`✅ Found ${(results as any)[0].studentCount} students in DB.`);
       }
     });
   }
