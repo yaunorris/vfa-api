@@ -25,7 +25,7 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) {
-    console.error('❌ DB connection failed:', err.message);
+    console.error('❌ DB connection failed:', err);
   } else {
     console.log('✅ Connected to NAS MariaDB successfully!');
     connection.query('SELECT COUNT(*) AS studentCount FROM students', (err, results) => {
